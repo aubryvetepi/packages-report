@@ -1,3 +1,8 @@
+#'---
+#'output: github_document
+#'---
+
+
 library(tidyverse)
 
 pkgs <- as_tibble(installed.packages())
