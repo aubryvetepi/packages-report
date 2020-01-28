@@ -43,3 +43,9 @@ addon_freqtable <- addon %>%
   mutate(prop = n / sum(n))
 
 write.table(addon_freqtable, here("add-on-packages-freqtable.csv"))
+
+## make a barchart from the frequency table in data/add-on-packages-freqtable.csv
+## if you use ggplot2, code like this will work:
+dat <- read.csv(here("add-on-packages-freqtable.csv"), sep=" ")
+ggplot(dat, aes(x = Built, y = n)) +
+  geom_col()
