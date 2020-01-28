@@ -23,4 +23,23 @@ library(here)
 
 dat <- as_tibble(installed.packages()) %>%
   select(Package, LibPath, Version, Priority, Built)
-write.csv(dat, here("data", "installed-packages.csv"))
+write.csv(dat, here("installed-packages.csv"))
+
+## filter out the base and recommended packages
+## keep the variables Package and Built
+## if you use dplyr, code like this will work:
+addon <- dat %>%
+  filter(is.na(Priority)) %>%
+  select(Package, Built)
+
+write.table(addon, here("add-on-packages.csv"))
+
+## write this new, smaller data frame to data/add-on-packages.csv
+## hint: readr::write_csv() or write.table()
+## make a frequency table of package by the version in Built
+## if you use dplyr, code like this will work:
+addon_freqtable <- addon %>%
+  count(Built) %>%
+  mutate(prop = n / sum(n))
+
+write.table(addon_freqtable, here("add-on-packages-freqtable.csv"))
